@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://harborstone-web-studio.qforman12.chatgpt.site/sitemap.xml
