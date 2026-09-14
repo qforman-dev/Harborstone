@@ -70,6 +70,9 @@ main>.faq{order:7}
 #quote-form label{position:relative}
 #quote-form .field-error{position:absolute;top:100%;left:0;font-size:12px;line-height:17px;color:#8b3734}
 #quote-form [aria-invalid="true"]{border-color:#8b3734}
+#quote-form select{appearance:none;-webkit-appearance:none;height:52px;min-height:52px;padding:12px 42px 12px 12px;line-height:1.5;background-color:var(--paper);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='m4 6 4 4 4-4' fill='none' stroke='%23172f40' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:16px;cursor:pointer}
+#submit-button{min-height:50px;padding:13px 24px;gap:0;line-height:1.5;text-align:center}
+#submit-button:disabled{opacity:.65;cursor:wait}
 @media(max-width:760px){
  #services{padding-block:36px}
  #services .services{grid-template-columns:1fr;gap:25px}
