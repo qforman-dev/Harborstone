@@ -1,6 +1,6 @@
 'use strict';
-// Set this to your form provider's HTTPS endpoint before launch.
-const FORM_ENDPOINT = '';
+// Formspree endpoint for Harborstone project inquiries.
+const FORM_ENDPOINT = 'https://formspree.io/f/mrpgnadj';
 const menu = document.querySelector('.menu');
 const nav = document.querySelector('#navigation');
 menu?.addEventListener('click', () => { const open = menu.getAttribute('aria-expanded') !== 'true'; menu.setAttribute('aria-expanded', String(open)); nav.classList.toggle('open', open); });
@@ -49,9 +49,9 @@ if (form) {
   field.addEventListener('input', revalidate);
   field.addEventListener('change', revalidate);
  });
- if (FORM_ENDPOINT) { button.innerHTML = 'Request My Free Estimate <span>↗</span>'; document.querySelector('#form-note').textContent = 'Your details will be used to respond to your request.'; }
  form.addEventListener('submit', async (event) => {
   event.preventDefault();
+  if (button.disabled) return;
   const invalidFields = requiredFields.filter(rule => !validateField(rule));
   if (invalidFields.length) {
    status.textContent = '';
@@ -59,16 +59,32 @@ if (form) {
    return;
   }
   const data = new FormData(form);
-  if (!FORM_ENDPOINT) {
-   const text = 'HARBORSTONE — PROJECT REQUEST\nNot sent. Saved for your records.\n\n' + Array.from(data.entries(), ([key,value]) => `${key}: ${value}`).join('\n\n');
-   const url = URL.createObjectURL(new Blob([text], {type:'text/plain'}));
-   const link = document.createElement('a'); link.href=url; link.download='harborstone-project-request.txt'; document.body.append(link); link.click(); link.remove(); setTimeout(()=>URL.revokeObjectURL(url),1000);
-   status.textContent = 'Your request file is ready to save. Nothing has been sent to Harborstone; inquiries will be available when the site launches.';
-   return;
+  button.disabled = true;
+  button.textContent = 'Sending…';
+  form.setAttribute('aria-busy', 'true');
+  status.textContent = 'Sending your request…';
+  try {
+   const response = await fetch(FORM_ENDPOINT, {
+    method: 'POST', body: data, headers: { Accept: 'application/json' }
+   });
+   if (!response.ok) {
+    status.textContent = response.status === 429
+     ? 'Too many requests. Please wait a few minutes and try again. Your details are still here.'
+     : 'Your request could not be sent. Your details are still here—please try again.';
+    return;
+   }
+   status.textContent = 'Thank you. Your project request has been sent. We’ll be in touch by phone.';
+   form.reset();
+   requiredFields.forEach(([name]) => {
+    form.elements.namedItem(name).removeAttribute('aria-invalid');
+    document.getElementById(`${name}-error`).textContent = '';
+   });
+  } catch {
+   status.textContent = 'Unable to connect. Please check your connection and try again. Your details are still here.';
+  } finally {
+   button.disabled = false;
+   button.textContent = 'Send Project Request';
+   form.removeAttribute('aria-busy');
   }
-  button.disabled = true; status.textContent = 'Sending your request…';
-  try { const response = await fetch(FORM_ENDPOINT, { method:'POST', body:data, headers:{Accept:'application/json'} }); if (!response.ok) throw new Error('Request failed'); status.textContent = 'Your request was submitted successfully. Thank you for telling us about your business.'; form.reset(); }
-  catch { status.textContent = 'Your request could not be sent. Your details are still here—please try again.'; }
-  finally { button.disabled = false; }
  });
 }
