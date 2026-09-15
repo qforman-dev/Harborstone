@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://qforman-dev.github.io/Harborstone/sitemap.xml
+Sitemap: https://harborstone-web-studio.qforman12.chatgpt.site/sitemap.xml

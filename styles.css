@@ -80,10 +80,12 @@ main>.faq{order:7}
 
 /* Footer: existing cream and navy, with a quieter surface and clear link groups. */
 .site-footer{background:color-mix(in srgb,var(--paper) 96%,var(--ink));border-top:1px solid var(--border);padding:64px 0 32px}
-.footer-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(160px,.35fr);gap:40px;padding-bottom:48px}
+.footer-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;padding-bottom:40px}
 .footer-brand .brand{margin-bottom:18px}
 .footer-brand p{font-size:13px;line-height:1.7;margin:0;color:var(--muted)}
 .footer-brand .footer-location{margin-top:12px}
+.footer-brand .footer-phone{margin-top:12px}
+.contact-phone a{color:var(--ink);white-space:nowrap;text-decoration:underline;text-underline-offset:4px}
 .footer-column{display:flex;flex-direction:column;align-items:flex-start;gap:9px;font-size:14px;min-width:0}
 .footer-column h2{font-family:Arial,Helvetica,sans-serif;font-size:11px;line-height:1.5;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin:0 0 10px}
 .footer-legal{display:flex;justify-content:space-between;align-items:center;gap:20px;border-top:1px solid var(--border);padding-top:24px;font-size:12px;color:var(--muted)}
@@ -91,3 +93,19 @@ main>.faq{order:7}
 .site-footer a{transition:color .16s}
 @media(max-width:1000px){.footer-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 48px}}
 @media(max-width:600px){.site-footer{padding-top:48px}.footer-grid{grid-template-columns:1fr;gap:32px;padding-bottom:36px}.footer-legal{flex-direction:column;text-align:center;gap:12px}.footer-legal nav{justify-content:center}}
+
+/* Balance the closing sections without changing the hero or brand styling. */
+#faq{grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:48px;padding-block:48px;align-items:start}
+#faq h2{max-width:390px}
+.site-footer{padding-top:48px}
+@media(max-width:760px){#faq{display:block;padding-block:36px}#faq>div:first-child{margin-bottom:26px}}
+
+.contact-email a{color:var(--ink);overflow-wrap:anywhere;text-decoration:underline;text-underline-offset:4px}
+.footer-brand .footer-email{margin-top:6px;overflow-wrap:anywhere}
+
+/* Anchor the footer groups across the container and keep contact rows readable. */
+@media(min-width:761px){.footer-grid{grid-template-columns:minmax(0,1fr) 180px;column-gap:64px}}
+.footer-phone a,.footer-email a{display:inline-flex;align-items:center;gap:10px;min-height:28px;max-width:100%;color:var(--ink)}
+.footer-phone svg,.footer-email svg{flex:none}
+.footer-email a span{min-width:0;overflow-wrap:anywhere}
+@media(max-width:600px){.footer-column{gap:8px}.footer-column h2{margin-bottom:0}.footer-grid{padding-bottom:48px}.footer-legal{padding-top:28px}}

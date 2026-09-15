@@ -11,7 +11,7 @@ document.querySelector('#year')?.replaceChildren(String(new Date().getFullYear()
 const sectionTitles = [
  ['#services', 'SERVICES', 'Practical, by design.'],
  ['#faq', 'FAQs', 'A few things worth knowing.'],
- ['#contact', 'CONTACT', 'Let’s talk about your website.']
+ ['#contact', 'CONTACT', "Let's talk about your website."]
 ];
 sectionTitles.forEach(([selector, label, title]) => {
  const section = document.querySelector(selector);
@@ -83,7 +83,7 @@ if (form) {
    status.textContent = 'Unable to connect. Please check your connection and try again. Your details are still here.';
   } finally {
    button.disabled = false;
-   button.textContent = 'Send Project Request';
+   button.textContent = 'Submit';
    form.removeAttribute('aria-busy');
   }
  });
